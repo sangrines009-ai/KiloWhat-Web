@@ -33,7 +33,7 @@ const Num = ({ v, unit }: { v: number; unit?: string }) => (
 const Select = ({ options, w = "w-[155px]" }: { options: string[]; w?: string }) => (
   <select className={cn(input, w)}>{options.map((o) => <option key={o}>{o}</option>)}</select>
 );
-const Row = ({ title, desc, small }: { title: string; desc: string; small?: boolean }) => (
+const Row = ({ title, desc, small = false }: { title: string; desc: string; small?: boolean }) => (
   <div className="flex items-center justify-between border-b border-border py-3">
     <div><p className="text-xs font-semibold text-ink">{title}</p><p className="text-[10px] text-subtle">{desc}</p></div>
     <Toggle small={small} />

@@ -70,7 +70,7 @@ function Profile() {
               <td className="px-1 py-4 font-semibold text-ink">{u.unit}</td>
               <td className={u.occupant === "Vacant" ? "text-subtle" : "text-ink"}>{u.occupant}</td>
               <td className="text-subtle">{u.meter}</td><td className="text-ink">{u.kwh}</td><td className="text-ink">{u.cost}</td>
-              <td><Badge tone={statusTone[u.status]} className="text-[11px]">{u.status}</Badge></td>
+              <td><Badge tone={statusTone[u.status] ?? "gray"} className="text-[11px]">{u.status}</Badge></td>
             </tr>
           ))}
         </tbody>

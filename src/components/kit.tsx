@@ -63,7 +63,7 @@ export function Pagination({ label, last }: { label: string; last: number }) {
   );
 }
 
-export function Toggle({ defaultOn = true, small }: { defaultOn?: boolean; small?: boolean }) {
+export function Toggle({ defaultOn = true, small = false }: { defaultOn?: boolean; small?: boolean }) {
   const [on, setOn] = useState(defaultOn);
   return (
     <button

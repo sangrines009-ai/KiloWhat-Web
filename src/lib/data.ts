@@ -8,7 +8,6 @@ export type User = {
   property: string;
   status: "Active" | "Suspended";
   joined: string;
-  avatar: string;
 };
 
 export const users: User[] = [

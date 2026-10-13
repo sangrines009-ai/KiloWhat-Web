@@ -21,14 +21,14 @@ export type User = {
 };
 
 export const users: User[] = [
-  { id: "USR-10241", name: "Maria Santos", role: "Landlord", email: "maria.santos@email.com", phone: "+63 917 552 8841", property: "Greenview Residence, Unit 15", status: "Active", joined: "Jan 12, 2024", avatar: a1 },
-  { id: "USR-10242", name: "Juan dela Cruz", role: "Tenant", email: "juan.delacruz@email.com", phone: "+63 918 221 4410", property: "Sunrise Tower, Unit 12A", status: "Active", joined: "Mar 05, 2024", avatar: a2 },
-  { id: "USR-10243", name: "Ana Reyes", role: "Individual", email: "ana.reyes@email.com", phone: "+63 919 774 1023", property: "East Homes Subdivision, Lot 4", status: "Active", joined: "Dec 18, 2023", avatar: a3 },
-  { id: "USR-10244", name: "Carlo Mendoza", role: "Tenant", email: "carlo.mendoza@email.com", phone: "+63 917 330 9921", property: "Greenview Residence, Unit 105-B", status: "Suspended", joined: "Jul 22, 2023", avatar: a4 },
-  { id: "USR-10245", name: "Elena Dimaculangan", role: "Landlord", email: "elena.d@email.com", phone: "+63 920 118 5532", property: "Villarosa Heights, Unit 15", status: "Active", joined: "Feb 29, 2024", avatar: a5 },
-  { id: "USR-10246", name: "Mark Sy", role: "Individual", email: "mark.sy@email.com", phone: "+63 915 662 0098", property: "Woodland Townhouses, Unit 3", status: "Active", joined: "Sep 09, 2023", avatar: a6 },
-  { id: "USR-10247", name: "Patricia Lopez", role: "Tenant", email: "patricia.l@email.com", phone: "+63 916 448 7710", property: "Sunrise Tower, Unit 8F", status: "Active", joined: "May 14, 2024", avatar: a7 },
-  { id: "USR-10248", name: "Ramon Valenzuela", role: "Tenant", email: "ramon.v@email.com", phone: "+63 917 909 3345", property: "Grand Heights Towers, Unit 22", status: "Suspended", joined: "Nov 02, 2023", avatar: a8 },
+  { id: "USR-10241", name: "Maria Santos", role: "Landlord", email: "maria.santos@email.com", phone: "+63 917 552 8841", property: "Greenview Residence, Unit 15", status: "Active", joined: "Jan 12, 2024" },
+  { id: "USR-10242", name: "Juan dela Cruz", role: "Tenant", email: "juan.delacruz@email.com", phone: "+63 918 221 4410", property: "Sunrise Tower, Unit 12A", status: "Active", joined: "Mar 05, 2024" },
+  { id: "USR-10243", name: "Ana Reyes", role: "Individual", email: "ana.reyes@email.com", phone: "+63 919 774 1023", property: "East Homes Subdivision, Lot 4", status: "Active", joined: "Dec 18, 2023" },
+  { id: "USR-10244", name: "Carlo Mendoza", role: "Tenant", email: "carlo.mendoza@email.com", phone: "+63 917 330 9921", property: "Greenview Residence, Unit 105-B", status: "Suspended", joined: "Jul 22, 2023" },
+  { id: "USR-10245", name: "Elena Dimaculangan", role: "Landlord", email: "elena.d@email.com", phone: "+63 920 118 5532", property: "Villarosa Heights, Unit 15", status: "Active", joined: "Feb 29, 2024" },
+  { id: "USR-10246", name: "Mark Sy", role: "Individual", email: "mark.sy@email.com", phone: "+63 915 662 0098", property: "Woodland Townhouses, Unit 3", status: "Active", joined: "Sep 09, 2023" },
+  { id: "USR-10247", name: "Patricia Lopez", role: "Tenant", email: "patricia.l@email.com", phone: "+63 916 448 7710", property: "Sunrise Tower, Unit 8F", status: "Active", joined: "May 14, 2024" },
+  { id: "USR-10248", name: "Ramon Valenzuela", role: "Tenant", email: "ramon.v@email.com", phone: "+63 917 909 3345", property: "Grand Heights Towers, Unit 22", status: "Suspended", joined: "Nov 02, 2023" },
 ];
 
 export type ArchivedUser = { id: string; name: string; role: Role; email: string; property: string; archived: string; restorable: boolean };

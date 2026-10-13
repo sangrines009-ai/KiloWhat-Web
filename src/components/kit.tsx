@@ -17,6 +17,11 @@ export function Badge({ tone, children, className }: { tone: Tone; children: Rea
 }
 export const roleTone = (r: string): Tone => (r === "Landlord" ? "violet" : r === "Tenant" ? "info" : "teal");
 
+/** Blank placeholder shown wherever a user's picture would go. */
+export function UserAvatar({ className }: { className?: string }) {
+  return <span aria-hidden="true" className={cn("shrink-0 rounded-full bg-muted border border-border", className)} />;
+}
+
 export function Card({ children, className }: { children: ReactNode; className?: string }) {
   return <div className={cn("rounded-xl border border-border bg-card", className)}>{children}</div>;
 }

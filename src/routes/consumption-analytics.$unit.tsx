@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { useState } from "react";
 import { ChevronLeft, ArrowDownWideNarrow } from "lucide-react";
 import { AdminLayout } from "@/components/AdminLayout";
@@ -8,6 +8,8 @@ import { units, unitTrend, dailyReadings, peso } from "@/lib/data";
 export const Route = createFileRoute("/consumption-analytics/$unit")({
   head: () => ({
     meta: [
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
       { title: "Unit Consumption Detail — KiloWhat Admin" },
       { name: "description", content: "Daily meter readings, cost and peak demand for a single unit." },
       { property: "og:title", content: "Unit Consumption Detail — KiloWhat Admin" },
@@ -21,23 +23,24 @@ type P = "Week" | "Month" | "Year";
 
 function UnitDetail() {
   const { unit } = Route.useParams();
-  const u = units.find((x) => x.unit === `Unit ${unit}`) ?? units[0]!;
+  const u = units.find((x) => x.unit === `Unit ${unit}`) ?? units[0];
   const [period, setPeriod] = useState<P>("Month");
+  if (!u) throw notFound();
   return (
     <AdminLayout title="Consumption Analytics">
       <Link to="/consumption-analytics" className="inline-flex items-center gap-3 rounded-md bg-card px-4 py-1.5 text-sm text-ink"><ChevronLeft className="h-4 w-4" />Back to all units</Link>
       <div className="mt-4"><Tabs<P> value={period} onChange={setPeriod} items={["Week", "Month", "Year"].map((v) => ({ value: v as P, label: v }))} /></div>
 
-      <div className="mt-14 grid grid-cols-[264px_280px_280px_1fr] gap-5">
+      <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 2xl:mt-14 2xl:grid-cols-4 2xl:gap-5">
         <StatCard label="kWh consumed" value={<span>76.2 <span className="text-[10px]">kWh</span></span>} extra={<Badge tone={changeTone(u.change)}>{fmtChange(u.change)}</Badge>} sub="Compared with previous month" />
         <StatCard label="Est. cost" value={peso(u.cost)} sub="At ₱8.50 per kWh" />
         <StatCard label="Daily average" value="10.7 kWh" sub="Average unit: 9.5 kWh" />
         <StatCard label="Peak demand" value="1.8 kW" sub="Sep 12, 7:30 PM" />
       </div>
 
-      <div className="mt-14 grid grid-cols-[1fr_330px] items-start gap-2.5">
+      <div className="mt-6 grid grid-cols-1 items-start gap-4 2xl:mt-14 2xl:grid-cols-[minmax(0,1fr)_330px]">
         <Card className="p-6">
-          <div className="flex items-start justify-between">
+          <div className="flex min-w-0 flex-col items-start justify-between gap-3 xl:flex-row">
             <div>
               <p className="text-base font-semibold text-ink">System-Wide Consumption Trend</p>
               <p className="text-sm text-subtle">Total power usage pattern monitored over the current month</p>
@@ -51,7 +54,8 @@ function UnitDetail() {
       </div>
 
       <Card className="mt-6 max-w-[825px] overflow-hidden">
-        <table className="w-full text-sm">
+        <div className="max-w-full overflow-x-auto" role="region" aria-label="Scrollable data table" tabIndex={0}>
+<table className="w-full text-sm min-w-[640px]">
           <thead className="bg-surface">
             <tr className="border-b border-border text-left text-xs font-semibold text-subtle">
               <th className="px-6 py-4">Date</th><th className="py-4">Meter reading</th>
@@ -68,6 +72,7 @@ function UnitDetail() {
             ))}
           </tbody>
         </table>
+        </div>
       </Card>
       <div className="max-w-[825px]"><Pagination label="Showing 6 of 30 Daily readings" last={5} /></div>
     </AdminLayout>

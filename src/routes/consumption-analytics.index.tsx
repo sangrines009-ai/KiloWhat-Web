@@ -8,6 +8,8 @@ import { units, analyticsTrend, peso } from "@/lib/data";
 export const Route = createFileRoute("/consumption-analytics/")({
   head: () => ({
     meta: [
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
       { title: "Consumption Analytics — KiloWhat Admin" },
       { name: "description", content: "Per-unit kWh consumption, cost and period-over-period change." },
       { property: "og:title", content: "Consumption Analytics — KiloWhat Admin" },
@@ -40,7 +42,7 @@ function Analytics() {
     <AdminLayout title="Consumption Analytics">
       <Tabs<P> value={period} onChange={setPeriod} items={["Week", "Month", "Year"].map((v) => ({ value: v as P, label: v }))} />
       <Card className="mt-6 p-6">
-        <div className="flex items-start justify-between">
+        <div className="flex min-w-0 flex-col items-start justify-between gap-3 xl:flex-row">
           <div>
             <p className="text-base font-semibold text-ink">System-Wide Consumption Trend</p>
             <p className="text-sm text-subtle">Total power usage pattern monitored over the current {period.toLowerCase()}</p>
@@ -51,7 +53,8 @@ function Analytics() {
         <AxisLabels labels={["30 days ago", "20 days ago", "10 days ago", "Today (280 kWh)"]} />
       </Card>
       <Card className="mt-6 overflow-hidden">
-        <table className="w-full text-sm">
+        <div className="max-w-full overflow-x-auto" role="region" aria-label="Scrollable data table" tabIndex={0}>
+<table className="w-full text-sm min-w-[640px]">
           <thead className="bg-surface">
             <tr className="border-b border-border text-left text-xs font-semibold text-subtle">
               <th className="w-6" /><H k="unit" label="Unit / Household" /><H k="owner" label="Owner" /><H k="kwh" label="kWh Consumed" /><H k="cost" label="Est. Cost" /><H k="change" label="% vs Prev Period" />
@@ -71,6 +74,7 @@ function Analytics() {
             ))}
           </tbody>
         </table>
+        </div>
       </Card>
       <Pagination label="Showing 8 of 912 registered units" last={114} />
     </AdminLayout>

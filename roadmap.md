@@ -1,0 +1,3 @@
+- [ ] Adapt shared navigation, controls, and tables to smaller screens.
+- [ ] Adapt all overview, detail, and settings pages.
+- [ ] Verify phone, tablet, and desktop layouts and navigation.

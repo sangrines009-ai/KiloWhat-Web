@@ -10,6 +10,8 @@ import { Button } from "@/components/ui/button";
 export const Route = createFileRoute("/user-management/")({
   head: () => ({
     meta: [
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
       { title: "User Management — KiloWhat Admin" },
       { name: "description", content: "Manage landlords, tenants and individual users on KiloWhat." },
       { property: "og:title", content: "User Management — KiloWhat Admin" },
@@ -30,20 +32,21 @@ function UserManagement() {
   );
   return (
     <AdminLayout title="User Management">
-      <div className="flex items-center justify-between">
+      <div className="flex min-w-0 flex-col items-stretch justify-between gap-4 2xl:flex-row 2xl:items-center">
         <Tabs<F> value={filter} onChange={setFilter} items={[{ value: "All", label: "All" }, { value: "Landlord", label: "Landlords" }, { value: "Tenant", label: "Tenants" }, { value: "Individual", label: "Individual Users" }]} />
-        <div className="flex items-center gap-3">
-          <label className="flex w-[280px] items-center gap-2 rounded-lg border border-border bg-card px-3 py-2">
+        <div className="flex min-w-0 flex-wrap items-center gap-3">
+          <label className="flex w-full min-w-0 items-center sm:w-[280px] gap-2 rounded-lg border border-border bg-card px-3 py-2">
             <Search className="h-4 w-4 text-subtle" />
-            <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search name, email, or unit..." className="w-full bg-transparent text-sm outline-none placeholder:text-subtle" />
+            <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search name, email, or unit..." className="min-w-0 w-full bg-transparent text-sm outline-none placeholder:text-subtle" />
           </label>
-          <Button asChild className="h-9 w-[140px]"><Link to="/user-management/archive">Archive</Link></Button>
+          <Button asChild className="h-9 sm:w-[140px]"><Link to="/user-management/archive">Archive</Link></Button>
           <Button className="h-9" onClick={() => toast.success("Add user form coming soon")}><Plus /> Add New User</Button>
         </div>
       </div>
 
       <Card className="mt-6 overflow-hidden">
-        <table className="w-full text-sm">
+        <div className="max-w-full overflow-x-auto" role="region" aria-label="Scrollable data table" tabIndex={0}>
+<table className="w-full text-sm min-w-[640px]">
           <thead className="bg-surface">
             <tr className="border-b border-border text-left text-xs font-semibold uppercase text-subtle">
               <th className="px-6 py-4">Name</th><th className="py-4 text-center">Role</th><th className="py-4 pl-4">Email / Contact</th>
@@ -54,7 +57,7 @@ function UserManagement() {
             {rows.map((u) => (
               <tr key={u.id} className="border-b border-border last:border-0">
                 <td className="px-6 py-3">
-                  <div className="flex items-center gap-3">
+                  <div className="flex min-w-0 flex-wrap items-center gap-3">
                     <UserAvatar className="h-9 w-9" />
                     <span className="font-semibold text-ink">{u.name}</span>
                   </div>
@@ -80,6 +83,7 @@ function UserManagement() {
             {rows.length === 0 && <tr><td colSpan={7} className="py-10 text-center text-subtle">No users match your search.</td></tr>}
           </tbody>
         </table>
+        </div>
       </Card>
       <Pagination label={`Showing ${rows.length} of 1,247 users`} last={156} />
     </AdminLayout>

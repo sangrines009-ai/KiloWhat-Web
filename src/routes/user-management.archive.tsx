@@ -9,6 +9,8 @@ import { useStore, restoreUser } from "@/lib/store";
 export const Route = createFileRoute("/user-management/archive")({
   head: () => ({
     meta: [
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
       { title: "User Archive — KiloWhat Admin" },
       { name: "description", content: "Archived KiloWhat user accounts that can be restored." },
       { property: "og:title", content: "User Archive — KiloWhat Admin" },
@@ -28,15 +30,16 @@ function Archive() {
   return (
     <AdminLayout title="User Archive">
       <Link to="/user-management" className="inline-flex items-center gap-2 rounded-md bg-card px-4 py-1.5 text-sm text-ink"><ChevronLeft className="h-4 w-4" /> back to user management</Link>
-      <div className="mt-6 flex items-center justify-between">
+      <div className="mt-6 flex min-w-0 flex-col items-stretch justify-between gap-4 xl:flex-row xl:items-center">
         <Tabs<F> value={filter} onChange={setFilter} items={[{ value: "All", label: "All" }, { value: "Landlord", label: "Landlords" }, { value: "Tenant", label: "Tenants" }, { value: "Individual", label: "Individual Users" }]} />
-        <label className="flex w-[280px] items-center gap-2 rounded-lg border border-border bg-card px-3 py-2">
+        <label className="flex w-full min-w-0 items-center sm:w-[280px] gap-2 rounded-lg border border-border bg-card px-3 py-2">
           <Search className="h-4 w-4 text-subtle" />
-          <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search name, email, or unit..." className="w-full bg-transparent text-sm outline-none placeholder:text-subtle" />
+          <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search name, email, or unit..." className="min-w-0 w-full bg-transparent text-sm outline-none placeholder:text-subtle" />
         </label>
       </div>
       <Card className="mt-6 overflow-hidden">
-        <table className="w-full text-sm">
+        <div className="max-w-full overflow-x-auto" role="region" aria-label="Scrollable data table" tabIndex={0}>
+<table className="w-full text-sm min-w-[640px]">
           <thead className="bg-surface">
             <tr className="border-b border-border text-left text-xs font-semibold text-subtle">
               <th className="px-6 py-4 uppercase">Name</th><th className="py-4 text-center uppercase">Role</th><th className="py-4 pl-4 uppercase">Email / Contact</th>
@@ -60,6 +63,7 @@ function Archive() {
             ))}
           </tbody>
         </table>
+        </div>
       </Card>
       <Pagination label={`Showing ${rows.length} of 18 users`} last={3} />
     </AdminLayout>

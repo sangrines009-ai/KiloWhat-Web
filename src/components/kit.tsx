@@ -1,5 +1,6 @@
 import { useEffect, useState, type ReactNode } from "react";
 import { ResponsiveContainer, LineChart, Line, YAxis, CartesianGrid, Tooltip, ReferenceDot } from "recharts";
+import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
 export type Tone = "brand" | "danger" | "warn" | "info" | "violet" | "teal" | "gray";
@@ -23,23 +24,24 @@ export function UserAvatar({ className }: { className?: string }) {
 }
 
 export function Card({ children, className }: { children: ReactNode; className?: string }) {
-  return <div className={cn("rounded-xl border border-border bg-card", className)}>{children}</div>;
+  return <div className={cn("min-w-0 rounded-xl border border-border bg-card", className)}>{children}</div>;
 }
 
 export function Tabs<T extends string>({ items, value, onChange }: { items: { value: T; label: string }[]; value: T; onChange: (v: T) => void }) {
   return (
-    <div className="flex gap-2">
+    <div className="flex min-w-0 max-w-full flex-wrap gap-2">
       {items.map((i) => (
-        <button
+        <Button
+          variant="outline"
           key={i.value}
           onClick={() => onChange(i.value)}
           className={cn(
-            "rounded-lg border px-4 py-1.5 text-sm font-medium transition-colors",
+            "h-auto min-h-9 rounded-lg border px-3 py-2 text-sm font-medium transition-colors sm:px-4",
             value === i.value ? "border-brand bg-brand-soft font-semibold text-brand" : "border-border bg-card text-subtle hover:bg-muted",
           )}
         >
           {i.label}
-        </button>
+        </Button>
       ))}
     </div>
   );
@@ -49,9 +51,9 @@ export function Pagination({ label, last }: { label: string; last: number }) {
   const [p, setP] = useState(1);
   const btn = "rounded-md border border-border bg-card px-3 py-1 text-sm text-subtle hover:bg-muted";
   return (
-    <div className="mt-6 flex items-center justify-between">
+    <div className="mt-6 flex flex-col items-start justify-between gap-3 sm:flex-row sm:items-center">
       <p className="text-sm text-subtle">{label}</p>
-      <div className="flex items-center gap-2">
+      <div className="flex max-w-full flex-wrap items-center gap-1.5">
         <button className={btn} onClick={() => setP(Math.max(1, p - 1))}>Previous</button>
         {[1, 2, 3].map((n) => (
           <button key={n} onClick={() => setP(n)} className={cn(btn, "min-w-8", p === n && "border-brand bg-brand-soft font-semibold text-brand")}>{n}</button>
@@ -104,7 +106,7 @@ export function TrendChart({ data, color = "var(--brand)", height = 200, endDot,
 
 export function AxisLabels({ labels }: { labels: string[] }) {
   return (
-    <div className="mt-3 flex justify-between text-xs text-subtle">
+    <div className="mt-3 flex justify-between gap-2 text-[10px] text-subtle sm:text-xs">
       {labels.map((l) => <span key={l}>{l}</span>)}
     </div>
   );
@@ -112,10 +114,10 @@ export function AxisLabels({ labels }: { labels: string[] }) {
 
 export function Legend({ items }: { items: { label: string; muted?: boolean; color?: string }[] }) {
   return (
-    <div className="flex gap-4">
+    <div className="flex min-w-0 flex-wrap gap-x-4 gap-y-2">
       {items.map((i) => (
-        <span key={i.label} className={cn("flex items-center gap-1.5 text-sm", i.muted ? "text-subtle" : "font-semibold text-ink")}>
-          <span className={cn("h-2 w-2 rounded-full", i.muted ? "bg-subtle" : i.color ?? "bg-brand")} />
+        <span key={i.label} className={cn("flex items-center gap-1.5 text-xs sm:text-sm", i.muted ? "text-subtle" : "font-semibold text-ink")}>
+          <span className={cn("h-2 w-2 shrink-0 rounded-full", i.muted ? "bg-subtle" : i.color ?? "bg-brand")} />
           {i.label}
         </span>
       ))}
@@ -127,7 +129,7 @@ export function StatCard({ label, value, sub, extra }: { label: string; value: R
   return (
     <Card className="px-4 py-3.5">
       <p className="text-sm text-subtle">{label}</p>
-      <div className="mt-2 flex items-center gap-2 font-medium text-ink">{value}{extra}</div>
+      <div className="mt-2 flex flex-wrap items-center gap-2 font-medium text-ink">{value}{extra}</div>
       <p className="mt-1 text-xs text-subtle">{sub}</p>
     </Card>
   );
@@ -139,9 +141,9 @@ export function DetailRows({ title, rows }: { title: string; rows: [string, stri
       <p className="text-sm font-semibold text-ink">{title}</p>
       <div className="mt-1">
         {rows.map(([k, v], i) => (
-          <div key={k} className={cn("flex justify-between py-2 text-sm", i < rows.length - 1 && "border-b border-border")}>
+          <div key={k} className={cn("grid grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)] gap-3 py-2 text-sm", i < rows.length - 1 && "border-b border-border")}>
             <span className="text-subtle">{k}</span>
-            <span className="font-semibold text-ink">{v}</span>
+            <span className="break-words text-right font-semibold text-ink">{v}</span>
           </div>
         ))}
       </div>

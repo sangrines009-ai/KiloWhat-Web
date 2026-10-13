@@ -68,7 +68,7 @@ function Dashboard() {
                   <p className="text-sm font-semibold text-ink">{a.unit}{a.unit.startsWith("Unit") ? ` (${a.owner.includes("Individual") ? "Individual" : "Tenant"})` : ""}</p>
                   <p className="text-xs text-subtle">{a.detected}</p>
                 </div>
-                <Badge tone={toneOf[a.badge]}>{a.short}</Badge>
+                <Badge tone={toneOf[a.badge] ?? "info"}>{a.short}</Badge>
               </Link>
             ))}
           </div>

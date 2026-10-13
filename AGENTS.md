@@ -8,3 +8,6 @@
 > Commits you push to the connected branch sync back to Lovable and show up in
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
+
+- Keep shared navigation in AdminLayout: use a drawer below the desktop breakpoint so all routes remain reachable on small screens.
+- Keep wide data tables inside local scroll regions and use minmax(0,1fr) for flexible detail grids to prevent page overflow.

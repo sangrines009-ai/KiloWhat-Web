@@ -15,6 +15,8 @@ export const Route = createFileRoute("/anomaly-flags/$id")({
   },
   head: () => ({
     meta: [
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
       { title: "Investigate Anomaly — KiloWhat Admin" },
       { name: "description", content: "Load trend, readings and details for a flagged anomaly." },
       { property: "og:title", content: "Investigate Anomaly — KiloWhat Admin" },
@@ -26,12 +28,13 @@ export const Route = createFileRoute("/anomaly-flags/$id")({
 
 function Investigate() {
   const { id } = Route.useParams();
-  const a = useStore((s) => s.anomalies.find((x) => x.id === id))!;
+  const a = useStore((s) => s.anomalies.find((x) => x.id === id));
+  if (!a) throw notFound();
   return (
     <AdminLayout title="Anomaly flags">
       <Link to="/anomaly-flags" className="inline-flex items-center gap-3 rounded-md bg-card px-4 py-1.5 text-sm text-ink"><ChevronLeft className="h-4 w-4" />Back to all anomaly</Link>
-      <div className="mt-6 flex items-center justify-between pr-5">
-        <div className="flex items-center gap-6">
+      <div className="mt-6 flex flex-col items-start justify-between gap-4 xl:flex-row xl:items-center">
+        <div className="flex min-w-0 flex-wrap items-center gap-4">
           <div><p className="text-sm font-semibold text-ink">{a.type} — {a.unit}</p><p className="text-xs text-subtle">Compared with previous month</p></div>
           <div className="flex gap-2">
             <Badge tone={a.severity === "Critical" ? "danger" : "warn"}>{a.severity}</Badge>
@@ -43,16 +46,16 @@ function Investigate() {
         </Button>
       </div>
 
-      <div className="mt-14 grid grid-cols-[264px_280px_280px_1fr] gap-5">
+      <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 2xl:mt-14 2xl:grid-cols-4 2xl:gap-5">
         <StatCard label="Peak draw" value="5.0 kW" sub="vs. 1.6 kW baseline average" />
         <StatCard label="Deviation" value="+212% above normal" sub="Threshold: +150%" />
         <StatCard label="Duration" value="6h 40m" sub="Started 10:14 AM today" />
         <StatCard label="Est. cost impact" value="₱268.30" sub="" />
       </div>
 
-      <div className="mt-14 grid grid-cols-[1fr_330px] items-start gap-2.5">
+      <div className="mt-6 grid grid-cols-1 items-start gap-4 2xl:mt-14 2xl:grid-cols-[minmax(0,1fr)_330px]">
         <Card className="p-6">
-          <div className="flex items-start justify-between">
+          <div className="flex min-w-0 flex-col items-start justify-between gap-3 xl:flex-row">
             <p className="text-base font-semibold text-ink">Load in the last 24 hours</p>
             <Legend items={[{ label: "Meter draw (kW)", color: "bg-danger" }]} />
           </div>
@@ -64,7 +67,8 @@ function Investigate() {
 
       <Card className="mt-6 max-w-[820px] overflow-hidden">
         <p className="px-9 py-5 text-sm font-semibold text-ink">Readings around the flag</p>
-        <table className="w-full text-sm">
+        <div className="max-w-full overflow-x-auto" role="region" aria-label="Scrollable data table" tabIndex={0}>
+<table className="w-full text-sm min-w-[640px]">
           <thead className="bg-surface">
             <tr className="border-b border-border text-left text-xs font-semibold text-subtle">
               <th className="px-6 py-4">Time</th><th className="py-4">Draw</th>
@@ -81,6 +85,7 @@ function Investigate() {
             ))}
           </tbody>
         </table>
+        </div>
       </Card>
     </AdminLayout>
   );

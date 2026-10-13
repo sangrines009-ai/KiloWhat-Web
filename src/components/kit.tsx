@@ -90,7 +90,7 @@ export function TrendChart({ data, color = "var(--brand)", height = 200, endDot,
           <YAxis hide domain={[0, refLine ? 100 : "auto"]} />
           <Tooltip formatter={(v) => [`${v} kWh`, "Usage"]} labelFormatter={() => ""} />
           <Line type="linear" dataKey="v" stroke={color} strokeWidth={2.5} dot={false} isAnimationActive={false} />
-          {endDot && <ReferenceDot x={rows.length - 1} y={data[data.length - 1]} r={4} fill={color} stroke="none" />}
+          {endDot && <ReferenceDot x={rows.length - 1} y={data[data.length - 1] ?? 0} r={4} fill={color} stroke="none" />}
         </LineChart>
       </ResponsiveContainer>
     </div>

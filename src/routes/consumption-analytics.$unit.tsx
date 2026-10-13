@@ -21,7 +21,7 @@ type P = "Week" | "Month" | "Year";
 
 function UnitDetail() {
   const { unit } = Route.useParams();
-  const u = units.find((x) => x.unit === `Unit ${unit}`) ?? units[0];
+  const u = units.find((x) => x.unit === `Unit ${unit}`) ?? units[0]!;
   const [period, setPeriod] = useState<P>("Month");
   return (
     <AdminLayout title="Consumption Analytics">

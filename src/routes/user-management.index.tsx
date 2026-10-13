@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Plus, Search } from "lucide-react";
 import { toast } from "sonner";
 import { AdminLayout } from "@/components/AdminLayout";
-import { Card, Badge, Tabs, Pagination, roleTone } from "@/components/kit";
+import { Card, Badge, Tabs, Pagination, roleTone, UserAvatar } from "@/components/kit";
 import { useStore, toggleUserStatus } from "@/lib/store";
 import { Button } from "@/components/ui/button";
 
@@ -55,7 +55,7 @@ function UserManagement() {
               <tr key={u.id} className="border-b border-border last:border-0">
                 <td className="px-6 py-3">
                   <div className="flex items-center gap-3">
-                    <img src={u.avatar} alt={u.name} className="h-9 w-9 rounded-full object-cover" />
+                    <UserAvatar className="h-9 w-9" />
                     <span className="font-semibold text-ink">{u.name}</span>
                   </div>
                 </td>

@@ -3,7 +3,7 @@ import { useState } from "react";
 import { ArrowLeft } from "lucide-react";
 import { toast } from "sonner";
 import { AdminLayout } from "@/components/AdminLayout";
-import { Card, Badge, TrendChart, AxisLabels, Legend, DetailRows, roleTone, type Tone } from "@/components/kit";
+import { Card, Badge, TrendChart, AxisLabels, Legend, DetailRows, roleTone, UserAvatar, type Tone } from "@/components/kit";
 import { users, userTrend, landlordUnits, accountActivity } from "@/lib/data";
 import { useStore, toggleUserStatus } from "@/lib/store";
 import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@/components/ui/dialog";
@@ -34,7 +34,6 @@ function Profile() {
   const [tab, setTab] = useState<Tab>("overview");
   const [msgOpen, setMsgOpen] = useState(false);
   const [suspendOpen, setSuspendOpen] = useState(false);
-  const initials = user.name.split(" ").map((p) => p[0]).slice(0, 2).join("");
   const outline = "rounded-md border border-border bg-card px-3.5 py-1.5 text-xs font-semibold text-ink hover:bg-muted";
 
   const trend = (
@@ -103,7 +102,7 @@ function Profile() {
       <Card className="mt-4 p-6">
         <div className="flex items-start justify-between">
           <div className="flex items-center gap-4">
-            <div className="flex h-[52px] w-[52px] items-center justify-center rounded-full bg-brand-soft text-lg font-semibold text-brand">{initials}</div>
+            <UserAvatar className="h-[52px] w-[52px]" />
             <div>
               <div className="flex items-center gap-2">
                 <p className="text-base font-bold text-ink">{user.name}</p>

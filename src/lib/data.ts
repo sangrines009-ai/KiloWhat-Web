@@ -1,12 +1,3 @@
-import a1 from "@/assets/avatar.png";
-import a2 from "@/assets/avatar-2.png";
-import a3 from "@/assets/avatar-3.png";
-import a4 from "@/assets/avatar-4.png";
-import a5 from "@/assets/avatar-5.png";
-import a6 from "@/assets/avatar-6.png";
-import a7 from "@/assets/avatar-7.png";
-import a8 from "@/assets/avatar-8.png";
-
 export type Role = "Landlord" | "Tenant" | "Individual";
 export type User = {
   id: string;
